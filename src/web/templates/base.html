@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{% block head_title %}{% endblock %}</title>
+  {% block head_scripts %}{% endblock %}
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+  {% block styelsheets %}{% endblock %}
+</head>
+<body>
+  <nav class="navbar navbar-dark sticky-top bg-dark py-1">
+      <!-- <button type="button" id="sidebar-collapse" class="btn btn-info">
+        <i class="fas fa-align-left"></i>
+        <span>Toggle Sidebar</span>
+      </button> -->
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">{% block group_header %}{% endblock %}</a>
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <nav id="sidebar" class="col-md-2 d-none d-md-block bg-light sidebar" style="min-height: 100vh;">
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column">
+            {% block sidebar %}
+            {% endblock %}
+          </ul>
+        </div>
+      </nav>
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4">
+        {% block content %}
+        {% endblock %}
+      </main>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  {% block extra_scripts %}
+  {% endblock%}
+</body>
+</html>

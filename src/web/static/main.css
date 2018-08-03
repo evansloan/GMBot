@@ -1,0 +1,109 @@
+p {
+  font-family: monospace;
+  margin: 3px;
+}
+
+.user-avatar {
+  width: 45px;
+  height: 45px;
+  display: block;
+  border-radius: 50%;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+#search {
+  width: 50%;
+  font-size: 16px;
+  padding: 5px 10px 5px 10px;
+  border: 1px solid #ddd;
+  margin: 20px 0 20px 0;
+}
+
+.command-list {
+  column-fill: auto;
+  column-width: 300px;
+  column-gap: 0px;
+  -moz-column-fill: auto;
+  -moz-column-width: 300px;
+  -moz-column-gap: 0px;
+  -webkit-column-fill: auto;
+  -webkit-column-width: 300px;
+  -webkit-column-gap: 0px;
+  list-style-type: none;
+  padding: 0;
+}
+
+.command-list li {
+  font-family: monospace, sans-serif;
+}
+
+.command-tooltip {
+  position: absolute;
+  white-space: nowrap;
+  background-color:#f5f5f5;
+  border:1px solid #d4d4d4;
+  padding:3px;
+  margin: 0 5px;
+  font-size:11px;
+  font-family: Arial, Helvetica, sans-serif;
+  box-shadow: 2px 2px 11px #999;
+  -moz-box-shadow: 2px 2px 11px #999;
+  -webkit-box-shadow: 2px 2px 11px #999;
+}
+
+#group-info { display: none; }
+#mods { display: none; }
+
+#message-chart { display: none; }
+#ratios { display: none; }
+
+#ml-message {
+  white-space: pre-wrap;
+}
+
+#likes-chart {
+  float: left;
+}
+
+#likes-pie, #given-pie, #message-pie {
+  width: 842px;
+  height: 500px;
+}
+
+#ratio-bar {
+  width: 850px;
+  height: 500px;
+}
+
+#message-chart {
+  float: left;
+}
+
+#likes-members, #given-members, #message-members, #ratio-members {
+  float: left;
+}
+
+#likes-members, #likes-pie {
+  margin-bottom: 25px;
+}
+
+#likes-pie, #given-pie, #message-pie, #ratio-bar {
+  float: right;
+}
+
+.nav-link {
+  color: #333;
+}
+
+.nav-link.active {
+  color: #007bff;
+}
+
+a[href="http://www.amcharts.com"] {
+  display: none !important;
+}
+
+.amcharts-export-menu.amcharts-export-menu-top-right.amExportButton {
+  display: none !important;
+}

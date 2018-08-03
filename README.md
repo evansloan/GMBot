@@ -1,0 +1,3 @@
+# GMBot
+
+Work in progress

@@ -1,0 +1,57 @@
+initialize:
+    help:
+        "Group is not yet initialized... type !initialize"
+
+add:
+    help:
+        "Use a colon to separate command and response\n
+        ex: !add command name : command response"
+    success:
+        "Command !{} added!"
+    failure:
+        "Command !{} already exists"
+    error:
+        "Use a colon to separate command and response\n
+        ex: !add command name : command response"
+
+edit:
+    help:
+        "Use a colon to separate command and response\n
+        ex: !edit command name : command response"
+    success:
+        "!{} edited successfully"
+    error:
+        "Use a colon to separate command and response\n
+        ex: !edit command name : command response"
+
+delete:
+    help:
+        "Supply a command name to be deleted\n
+        ex: !delete command name"
+    success:
+        "Command !{} deleted"
+    error:
+        "Command !{} does not exist or cannot be deleted"
+
+roll:
+    help:
+        "Provide a number to be rolled that is greater than 1\n
+        ex: !roll 10"
+    number_error:
+        "Please use a real number greater than 1"
+    hex_error:
+        "Invalid hex"
+
+jpeg:
+    help:
+        "Provide an image URL to jpegify\n
+        ex: !jpeg https://example.com/image.png"
+    error:
+        "Invalid image URL"
+
+remindme:
+    help:
+        "Provide a reminder and time until you want to be reminded\n
+        ex: !remindme 10 hours thing to remind you about"
+    unit_error:
+        "Only use minutes, hours, days, weeks, months, and years"

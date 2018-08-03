@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+{% block head_title %}{{ group.group_name }} | Stats{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+{% endblock %}
+
+{% block group_header %}{{ group.group_name }}{% endblock %}
+
+{% block sidebar %}
+<h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+  <span>Last updated: {{ group.last_updated|timesince }}</span>
+</h6>
+<li class="nav-item">
+  <a class="nav-link active" id="show-likes" info-panel="#likes-chart" href="#likes">Likes</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" id="show-messages" info-panel="#message-chart" href="#messages">Messages</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" id="show-ratios" info-panel="#ratios" href="#ratios">Ratios</a>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="col-md-12">
+  <div id="likes-chart" info-panel>
+    <div id="likes-pie"></div>
+    <div id="likes-members">
+      <h4>Likes received</h4>
+      {% for member in likes %}
+      <p>{{ member }}</p>
+      {% endfor %}
+    </div>
+    <div id="given-pie"></div>
+    <div id="given-members">
+      <h4>Likes given out</h4>
+      {% for member in given %}
+      <p>{{ member }}</p>
+      {% endfor %}
+    </div>
+  </div>
+  <div id="message-chart" info-panel>
+    <h4>Messages: {{ group.message_count }} total messages</h4>
+    <div id="message-pie"></div>
+    <div id="message-members">
+      {% for member in messages %}
+      <p>{{ member }}</p>
+      {% endfor %}
+    </div>
+  </div>
+  <div id="ratios" info-panel>
+    <h4>Like-to-message ratios</h4>
+    <div id="ratio-bar"></div>
+    <div id="ratio-members">
+      {% for ratio in ratios %}
+      <p>{{ ratio }}</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>
+<script>
+  window.onload = function() {
+    var likeChart = AmCharts.makeChart( "likes-pie", {
+      "type": "pie",
+      "theme": "light",
+      "dataProvider": [
+      {% for label, value in likes_set %}
+      {
+        "member": "{{ label }}",
+        "likes": {{ value }}
+      },
+      {% endfor %}
+      ],
+      "valueField": "likes",
+      "titleField": "member",
+       "balloon":{
+       "fixedPosition":true
+      },
+      "export": {
+        "enabled": true
+      }
+    });
+
+    var givenChart = AmCharts.makeChart( "given-pie", {
+      "type": "pie",
+      "theme": "light",
+      "dataProvider": [
+      {% for label, value in given_set %}
+      {
+        "member": "{{ label }}",
+        "likes": {{ value }}
+      },
+      {% endfor %}
+      ],
+      "valueField": "likes",
+      "titleField": "member",
+       "balloon":{
+       "fixedPosition":true
+      },
+      "export": {
+        "enabled": true
+      }
+    });
+
+    var messageChart = AmCharts.makeChart( "message-pie", {
+      "type": "pie",
+      "theme": "light",
+      "dataProvider": [
+      {% for label, value in messages_set %}
+      {
+        "member": "{{ label }}",
+        "likes": {{ value }}
+      },
+      {% endfor %}
+      ],
+      "valueField": "likes",
+      "titleField": "member",
+       "balloon":{
+       "fixedPosition":true
+      },
+      "export": {
+        "enabled": true
+      }
+    });
+
+    var ratioChart = AmCharts.makeChart("ratio-bar", {
+      "type": "serial",
+      "theme": "none",
+      "dataProvider": [
+      {% for label, value, color, user_avatar in ratios_set %}
+      {
+        "name": "{{ label }}",
+        "ratio": {{ value }},
+        "color": "{{ color }}",
+        "bullet": "{{ user_avatar }}"
+      },
+      {% endfor %}
+      ],
+      "valueAxes": [{
+        "maximum": 10,
+        "minimum": 0,
+        "axisAlpha": 0,
+        "dashLength": 4,
+        "position": "left"
+      }],
+      "startDuration": 1,
+      "graphs": [{
+        "balloonText": "<span style='font-size:13px;'>[[category]]: <b>[[value]]</b></span>",
+        "bulletOffset": 10,
+        "bulletSize": 32,
+        "colorField": "color",
+        "cornerRadiusTop": 0,
+        "customBulletField": "bullet",
+        "fillAlphas": 0.8,
+        "lineAlpha": 0,
+        "type": "column",
+        "valueField": "ratio"
+      }],
+      "marginTop": 0,
+      "marginRight": 0,
+      "marginLeft": 0,
+      "marginBottom": 0,
+      "autoMargins": false,
+      "categoryField": "name",
+      "categoryAxis": {
+        "axisAlpha": 0,
+        "gridAlpha": 0,
+        "inside": false,
+        "tickLength": 0
+      },
+      "export": {
+        "enabled": true
+      },
+    });
+  };
+</script>
+{% endblock %}
+{% block extra_scripts %}
+<script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+<script src="https://www.amcharts.com/lib/3/pie.js"></script>
+<script src="https://www.amcharts.com/lib/3/serial.js"></script>
+<script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+<script src="https://www.amcharts.com/lib/3/themes/none.js"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}

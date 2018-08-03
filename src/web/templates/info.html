@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block head_title %}{{ title }} | Info{% endblock %}
+{% block group_header %}{{ title }}{% endblock %}
+
+{% block sidebar %}
+<li class="nav-item">
+  <a class="nav-link active" id="show-commands" info-panel="#commands" href="#commands">Commands</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" id="show-info" info-panel="#group-info" href="#info">Info</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" id="show-mods" info-panel="#mods" href="#mods">Mods</a>
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="col-md-12">
+  <div id="commands" info-panel>
+    <h4>Bot commands</h4>
+    <ul class="command-list">
+    {% for command in cmds %}
+      <li>{{ command }}</li>
+    {% endfor %}
+    </ul>
+    <h4>User Commands</h4>
+    <p>Hover or click on commands to see description</p>
+    <p>Use !add description <i>command name</i> : <i>command description</i> to add a description</p>
+    <input type="text" id="search" placeholder="Search commands or descriptions...">
+    <a href="#" id="sort-used">Sort by times used</a>
+    <ul id="user-command-list" class="command-list">
+    {% for command in user_cmds %}
+      <li title="{{ command.description }}" data-times-used="{{ command.times_used }}">{{ command.command }}</li>
+    {% endfor %}
+    </ul>
+  </div>
+  <div id="group-info" info-panel>
+    <h4>Group info</h4>
+    <h6>Created by: <p>{{ creator.username }}</p></h6>
+    <h6>Date created: <p>{{ group.created_at.strftime('%A, %B %d, %Y') }}</p></h6>
+    <h6>Message count: <p>{{ db_group.message_count }}</p></h6>
+    <h6>Member count: <p>{{ group.members|length }}</p></h6>
+    <h6>Most liked message ({{ db_group.ml_likes }} likes): <p>{{ db_group.ml_message|linebreaks }}</p></h6>
+  </div>
+  <div id="mods" info-panel>
+    <h4>Mods</h4>
+    {% for key, value in mods.items() %}
+      <img src={{value}} class="user-avatar">
+      <p>{{ key }}</p>
+    {% endfor %}
+  </div>
+</div>
+<div class="clearfix"></div>
+{% endblock %}
+{% block extra_scripts %}
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}
