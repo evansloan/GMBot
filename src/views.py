@@ -146,11 +146,6 @@ def stats_view():
                            given=given_list, ratios=ratio_list)
 
 
-@main_blueprint.route('/likes', methods=['GET'])
-def likes_view():
-    return render_template('likes.html')
-
-
 def check_for_reminders(group_id, bot):
     """
     Checks a group for any reninders that are past the current time
