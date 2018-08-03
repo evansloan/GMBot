@@ -146,27 +146,6 @@ def stats_view():
                            given=given_list, ratios=ratio_list)
 
 
-@main_blueprint.route('/PapaCoins', methods=['GET'])
-def coins_view():
-    group_id = request.args.get('group_id', default=1, type=str)
-    members = Member.get_members(group_id)
-    group = Group.get_group(group_id)
-
-    coins = {
-        'given': {},
-        'recv': {}
-    }
-    for member in members:
-        coins['given'][member.username] = member.coin_given
-        coins['recv'][member.username] = member.coin_recv
-
-    coin_given = utils.order_dict(coins['given'])
-    coin_recv = utils.order_dict(coins['recv'])
-    return render_template('coins.html', title=group.group_name,
-                           group_id=group.group_id, coin_given=coin_given,
-                           coin_recv=coin_recv)
-
-
 @main_blueprint.route('/likes', methods=['GET'])
 def likes_view():
     return render_template('likes.html')
